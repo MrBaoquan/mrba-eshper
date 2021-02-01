@@ -6,6 +6,8 @@ export function CallFunction(func:Function, thisArgument?:any, ...args:any[]):an
 export function CallFunction(target:object, func:string, ...args:any[]):any;
 export function CallFunction(target:object|Function,  thisOrFunc:string|undefined, ...args:any[]):any{
     if(typeof target==='function'){
+        console.log("call function...");
+        console.log(args);
         return Reflect.apply(<Function>target,thisOrFunc,args);
     }else if(typeof target==='object'){
         let _func = Reflect.get(<object>target,<string>thisOrFunc,args);
