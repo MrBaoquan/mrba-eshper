@@ -8,6 +8,15 @@ export class Logger{
     private static warn:LogAction = console.warn;
     private static error:LogAction = console.error;
 
+    private static logable:boolean = true;
+    static Enable(){
+        this.logable = true;
+    }
+
+    static Disable(){
+        this.logable = false;
+    }
+
     static Register(params:{info?:LogAction, warn?:LogAction, error?:LogAction}){
         if(params.info)
             this.info = params.info;
@@ -33,6 +42,7 @@ export class Logger{
      * examples 
      */
     private static doLogger(action:{(message?: any, ...optionalParams: any[]):void}, message?: any, ...optionalParams: any[]){
+        if(!this.logable) return;
         let _timePrefix:string = moment().format("YYYY-MM-DD HH:mm:ss.SSS") + ": ";
         if(typeof message==='string')
             action(_timePrefix + message, ...optionalParams);
